@@ -4,12 +4,14 @@ from dotenv import load_dotenv
 import os
 from werkzeug.security import generate_password_hash, check_password_hash
 from analytics.analytics import generate_task_analytics
+from flask_socketio import SocketIO
 
 # Load environment variables
 load_dotenv()
 
 # Create Flask app
 app = Flask(__name__)
+socketio = SocketIO(app)
 
 # Configure database
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URL")
@@ -92,6 +94,11 @@ def dashboard():
 
         db.session.add(new_task)
         db.session.commit()
+        # EMIT EVENT HERE
+        socketio.emit("new_task", {
+            "message": "New Task Added!"
+        })
+        print("Socket event emitted")
 
     # Fetch all tasks from database
     tasks = Task.query.all()
@@ -218,4 +225,4 @@ def delete_task_api(id):
     })
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    socketio.run(app, debug=True)
