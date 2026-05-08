@@ -157,6 +157,14 @@ python app.py
 
 ![Database](screenshots/database.png)
 
+# Database Schema
+
+PostgreSQL database schema export file:
+
+```plaintext
+taskmanager_schema.sql
+```
+
 # Future Improvements
 
 - Better frontend interactivity
