@@ -3,6 +3,7 @@ from extensions import db
 from dotenv import load_dotenv
 import os
 from werkzeug.security import generate_password_hash, check_password_hash
+from analytics.analytics import generate_task_analytics
 
 # Load environment variables
 load_dotenv()
@@ -94,8 +95,13 @@ def dashboard():
 
     # Fetch all tasks from database
     tasks = Task.query.all()
+    analytics = generate_task_analytics(tasks)
 
-    return render_template("dashboard.html", tasks=tasks)
+    return render_template(
+        "dashboard.html",
+        tasks=tasks,
+        analytics=analytics
+    )
 
 @app.route("/delete-task/<int:id>")
 def delete_task(id):

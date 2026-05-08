@@ -31,6 +31,18 @@
 
     <hr>
 
+    <h2>Task Analytics</h2>
+
+    <p>Total Tasks: {{ analytics.total_tasks }}</p>
+
+    <p>Completed Tasks: {{ analytics.completed_tasks }}</p>
+
+    <p>Pending Tasks: {{ analytics.pending_tasks }}</p>
+
+    <p>Completion Percentage: {{ analytics.completion_percentage }}%</p>
+
+    <hr>
+    
     <h2>All Tasks</h2>
 
     {% for task in tasks %}
