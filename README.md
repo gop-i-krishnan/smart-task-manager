@@ -139,6 +139,24 @@ python app.py
 
 ---
 
+# Screenshots
+
+## Dashboard
+
+![Dashboard](screenshots/dashboard.png)
+
+## Edit Task
+
+![Edit Task](screenshots/edit-task.png)
+
+## REST API Testing
+
+![API Testing](screenshots/api-testings.png)
+
+## PostgreSQL Database
+
+![Database](screenshots/database.png)
+
 # Future Improvements
 
 - Better frontend interactivity
