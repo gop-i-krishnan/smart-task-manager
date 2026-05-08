@@ -144,8 +144,7 @@ COPY public.task (id, title, description, priority, status, created_date) FROM s
 --
 
 COPY public."user" (id, username, password) FROM stdin;
-1	gopi@123	gopi123
-2	alex	scrypt:32768:8:1$eHvnzJHQvxSqqZu5$cdb5aeb28a921ff04b3f02bfaf1415c6db4680b6898234851a2a22a28cbef5a04f3564aa71f9bcd939cd9209dd5f122197122c715b7f64e62395d80c16fbdd23
+1	alex	scrypt:32768:8:1$eHvnzJHQvxSqqZu5$cdb5aeb28a921ff04b3f02bfaf1415c6db4680b6898234851a2a22a28cbef5a04f3564aa71f9bcd939cd9209dd5f122197122c715b7f64e62395d80c16fbdd23
 \.
 
 
