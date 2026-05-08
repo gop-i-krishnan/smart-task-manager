@@ -13,7 +13,7 @@ def generate_task_analytics(tasks):
         })
 
     # Create DataFrame
-    df = pd.DataFrame(task_data)
+    df = pd.DataFrame(task_data, columns=["title", "status"])
 
     # Total tasks
     total_tasks = len(df)

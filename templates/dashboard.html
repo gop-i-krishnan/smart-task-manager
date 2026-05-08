@@ -45,21 +45,28 @@
             </div>
 
             <div class="mb-3">
-                <input
-                    type="text"
+                <select
                     name="priority"
-                    class="form-control"
-                    placeholder="Priority"
+                    class="form-select"
                 >
+
+                    <option value="High">High</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Low">Low</option>
+
+                </select>
             </div>
 
             <div class="mb-3">
-                <input
-                    type="text"
+                <select
                     name="status"
-                    class="form-control"
-                    placeholder="Status"
+                    class="form-select"
                 >
+
+                    <option value="Pending">Pending</option>
+                    <option value="Completed">Completed</option>
+
+                </select>
             </div>
 
             <button class="btn btn-primary">
@@ -128,13 +135,39 @@
                 {{ task.description }}
             </p>
 
-            <span class="badge bg-primary">
-                Priority: {{ task.priority }}
-            </span>
+            {% if task.priority == "High" %}
 
-            <span class="badge bg-success">
-                Status: {{ task.status }}
-            </span>
+                <span class="badge bg-danger">
+                    Priority: {{ task.priority }}
+                </span>
+
+            {% elif task.priority == "Medium" %}
+
+                <span class="badge bg-warning text-dark">
+                    Priority: {{ task.priority }}
+                </span>
+
+            {% else %}
+
+                <span class="badge bg-primary">
+                    Priority: {{ task.priority }}
+                </span>
+
+            {% endif %}
+
+            {% if task.status == "Completed" %}
+
+                <span class="badge bg-success">
+                    Status: {{ task.status }}
+                </span>
+
+            {% else %}
+
+                <span class="badge bg-secondary">
+                    Status: {{ task.status }}
+                </span>
+
+            {% endif %}
 
             <div class="mt-3">
 
