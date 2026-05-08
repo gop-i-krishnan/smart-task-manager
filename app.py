@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, jsonify
 from extensions import db
 from dotenv import load_dotenv
 import os
@@ -137,6 +137,85 @@ def edit_task(id):
         return redirect("/dashboard")
 
     return render_template("edit_task.html", task=task)
+
+@app.route("/api/tasks", methods=["GET"])
+def get_tasks():
+
+    tasks = Task.query.all()
+
+    task_list = []
+
+    for task in tasks:
+
+        task_list.append({
+            "id": task.id,
+            "title": task.title,
+            "description": task.description,
+            "priority": task.priority,
+            "status": task.status
+        })
+
+    return jsonify(task_list)
+
+@app.route("/api/tasks", methods=["POST"])
+def create_task_api():
+
+    # Get JSON data from request
+    data = request.get_json()
+
+    # Create task object
+    new_task = Task(
+        title=data["title"],
+        description=data["description"],
+        priority=data["priority"],
+        status=data["status"]
+    )
+
+    # Save to database
+    db.session.add(new_task)
+    db.session.commit()
+
+    return jsonify({
+        "message": "Task created successfully"
+    })
+    
+@app.route("/api/tasks/<int:id>", methods=["PUT"])
+def update_task_api(id):
+
+    # Find task by ID
+    task = Task.query.get(id)
+
+    # Get JSON data
+    data = request.get_json()
+
+    # Update fields
+    task.title = data["title"]
+    task.description = data["description"]
+    task.priority = data["priority"]
+    task.status = data["status"]
+
+    # Save changes
+    db.session.commit()
+
+    return jsonify({
+        "message": "Task updated successfully"
+    })
+    
+@app.route("/api/tasks/<int:id>", methods=["DELETE"])
+def delete_task_api(id):
+
+    # Find task
+    task = Task.query.get(id)
+
+    # Delete task
+    db.session.delete(task)
+
+    # Save changes
+    db.session.commit()
+
+    return jsonify({
+        "message": "Task deleted successfully"
+    })
 
 if __name__ == "__main__":
     app.run(debug=True)
